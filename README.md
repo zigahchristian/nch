@@ -8,4 +8,4 @@ This project is a starting point by Christian & Joshua.
 
 
 
- ![Homepage]("/assets/NCH.jpg")
+ ![Homepage]("assets/NCH.jpg")
