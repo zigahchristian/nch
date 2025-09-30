@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nch/models/hymn.dart';
 import 'package:provider/provider.dart';
-import 'package:share_plus/share_plus.dart';
 import 'package:nch/providers/hymnal_model.dart';
 
 
@@ -22,10 +21,6 @@ actions: [
 IconButton(
 icon: Icon(isFav ? Icons.favorite : Icons.favorite_border, color: isFav ? Colors.red : null),
 onPressed: () => model.toggleFavorite(hymn.number),
-),
-IconButton(
-icon: const Icon(Icons.share),
-onPressed: () => Share.share('${hymn.title}\n\n${hymn.lyrics}'),
 ),
 ],
 ),
