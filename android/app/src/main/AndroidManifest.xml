@@ -2,7 +2,7 @@
     <application
         android:label="New Catholic Hymnal"
         android:name="${applicationName}"
-        android:icon="@mipmap/laucher_icon">
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:exported="true"
