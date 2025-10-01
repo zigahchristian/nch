@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 
 
 class LoadingScreen extends StatefulWidget {
-const LoadingScreen({Key? key}) : super(key: key);
+const LoadingScreen({super.key});
 
 
 @override

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nch/models/hymn.dart';
 import 'package:provider/provider.dart';
 import 'package:nch/providers/hymnal_model.dart';
+import 'package:nch/screens/settings_sheet.dart';
 
 
 
@@ -22,6 +23,11 @@ IconButton(
 icon: Icon(isFav ? Icons.favorite : Icons.favorite_border, color: isFav ? Colors.red : null),
 onPressed: () => model.toggleFavorite(hymn.number),
 ),
+IconButton(
+icon: const Icon(Icons.settings),
+onPressed: () => showModalBottomSheet(context: context, builder: (_) => const SettingsSheet()),
+tooltip: 'Settings',
+),
 ],
 ),
 body: Padding(
@@ -32,7 +38,6 @@ crossAxisAlignment: CrossAxisAlignment.start,
 children: [
 Text(hymn.firstLine, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold), textScaleFactor: model.textScale),
 const SizedBox(height: 12),
-Text('Author: ${hymn.author} • Composer: ${hymn.composer}', style: Theme.of(context).textTheme.bodySmall, textScaleFactor: model.textScale),
 const SizedBox(height: 12),
 SelectableText(hymn.lyrics, style: Theme.of(context).textTheme.bodyMedium, textScaleFactor: model.textScale),
 const SizedBox(height: 20),

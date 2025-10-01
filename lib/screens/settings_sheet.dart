@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 
 class SettingsSheet extends StatelessWidget {
-const SettingsSheet({Key? key}) : super(key: key);
+const SettingsSheet({super.key});
 
 
 @override

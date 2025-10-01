@@ -13,7 +13,7 @@ runApp(const HymnalApp());
 
 
 class HymnalApp extends StatelessWidget {
-const HymnalApp({Key? key}) : super(key: key);
+const HymnalApp({super.key});
 
 
 @override

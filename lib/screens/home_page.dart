@@ -2,12 +2,11 @@
 import 'package:flutter/material.dart';
 import 'package:nch/providers/hymnal_model.dart';
 import 'package:nch/screens/hymnal_detail_page.dart';
-import 'package:nch/screens/settings_sheet.dart';
 import 'package:provider/provider.dart';
 
 
 class HomePage extends StatelessWidget {
-const HomePage({Key? key}) : super(key: key);
+const HomePage({super.key});
 
 @override
 Widget build(BuildContext context) {
@@ -21,11 +20,7 @@ icon: Icon(model.showFavoritesOnly ? Icons.favorite : Icons.favorite_border),
 onPressed: () => model.setShowFavoritesOnly(!model.showFavoritesOnly),
 tooltip: 'Toggle favorites',
 ),
-IconButton(
-icon: const Icon(Icons.settings),
-onPressed: () => showModalBottomSheet(context: context, builder: (_) => const SettingsSheet()),
-tooltip: 'Settings',
-),
+
 ],
 ),
 body: Column(
@@ -54,7 +49,6 @@ final h = list[idx];
 final fav = m.favoriteSet.contains(h.number);
 return ListTile(
 title: Text('${h.number}. ${h.title}'),
-subtitle: Text(h.firstLine, maxLines: 1, overflow: TextOverflow.ellipsis),
 trailing: IconButton(
 icon: Icon(fav ? Icons.favorite : Icons.favorite_border, color: fav ? Colors.red : null),
 onPressed: () => m.toggleFavorite(h.number),
