@@ -1,6 +1,6 @@
 {
-    "name": "nch",
-    "short_name": "nch",
+    "name": "New Catholic Hymnal",
+    "short_name": "New Catholic Hymnal",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",

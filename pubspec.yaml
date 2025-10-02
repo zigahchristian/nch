@@ -108,8 +108,8 @@ flutter_native_splash:
   # The background color of the splash screen.
   # This is the only required parameter if no image or background_image is provided.
   color: "#7C3E45" 
-  android_gravity: fill
-  ios_content_mode: scaleAspectFill
+  android_gravity: scaleAspectFit
+  ios_content_mode: scaleAspectFit
   
   # The path to your splash screen image (e.g., logo).
   # This image will be centered on the splash screen.
