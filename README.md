@@ -6,10 +6,10 @@ This project is a starting point by Christian & Joshua - 2025.
 
 ## Screenshots
 
-![Homepage 1](assets\screenshots\Hompage1.png)
+![Homepage 1](assets/screenshots/Hompage1.png)
 
-![Homepage 2](assets\screenshots\Hompage2.png)
+![Homepage 2](assets/screenshots/Hompage2.png)
 
-![Homepage 3](assets\screenshots\Hompage3.png)
+![Homepage 3](assets/screenshots/Hompage3.png)
 
-![Homepage 4](assets\screenshots\Hompage4.png)
+![Homepage 4](assets/screenshots/Hompage4.png)
