@@ -32,6 +32,7 @@ dependencies:
     sdk: flutter
   provider: ^6.0.5
   shared_preferences: ^2.1.1
+  share_plus: ^7.0.1
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -66,15 +67,25 @@ flutter:
 
   assets:
     - assets/hymns.json
-    - assets/icon/icon432.png
+    - assets/icon/icon.png
     - assets/icon/splash.png
+    - fonts/Roboto-Bold.ttf
+    - fonts/Roboto-Regular.ttf
   #   - images/a_dot_ham.jpeg
+
 flutter_launcher_icons:
   android: "laucher_icon"
   iso: "AppIcon"
-  image_path: "assets/icon/icon432.png" # Replace with your icon's path
-  min_sdk_android: 21
+  image_path: "assets/icon/splash.png" # Replace with your icon's path
   remove_alpha_ios: true
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/icon.png" # Path to your icon file
+  # Optional: Generate adaptive icons (Android 8.0+)
+  adaptive_icon_background: "#FFFFFF" # Background color
+  adaptive_icon_foreground: "assets/icon/icon_foreground.png" # Foreground icon
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
@@ -87,11 +98,12 @@ flutter_launcher_icons:
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For
   # example:
-  # fonts:
-  #   - family: Schyler
-  #     fonts:
-  #       - asset: fonts/Schyler-Regular.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+  fonts:
+    - family: Robot
+      fonts:
+        - asset: fonts/Rotobo-Regular.ttf
+        - asset: fonts/Rotobo-Bold.ttf
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:
@@ -105,8 +117,6 @@ flutter_native_splash:
   # The background color of the splash screen.
   # This is the only required parameter if no image or background_image is provided.
   color: "#7C3E45"
-  android_gravity: scaleAspectFill
-  ios_content_mode: scaleAspectFill
 
   # The path to your splash screen image (e.g., logo).
   # This image will be centered on the splash screen.

@@ -1,4 +1,4 @@
-package com.example.nch
+package com.example.hymnal
 
 import io.flutter.embedding.android.FlutterActivity
 

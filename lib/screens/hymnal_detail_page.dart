@@ -3,25 +3,55 @@ import 'package:nch/models/hymn.dart';
 import 'package:provider/provider.dart';
 import 'package:nch/providers/hymnal_model.dart';
 import 'package:nch/screens/settings_sheet.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HymnDetailPage extends StatelessWidget {
   final Hymn hymn;
   const HymnDetailPage({super.key, required this.hymn});
 
+  void _shareHymn(BuildContext context) {
+    final shareText = _buildShareText();
+    Share.share(
+      shareText,
+      subject: '${hymn.number}. ${hymn.title} - The New Catholic Hymnal',
+    );
+  }
+
+  String _buildShareText() {
+    return '''  
+${hymn.number}. ${hymn.title}
+
+${hymn.firstLine}
+
+${hymn.lyrics}
+
+---
+Shared from The New Catholic Hymnal (NCH) APP
+
+''';
+  }
+
   @override
   Widget build(BuildContext context) {
     final model = Provider.of<HymnalModel>(context);
     final isFav = model.favoriteSet.contains(hymn.number);
+
     return Scaffold(
       appBar: AppBar(
-        title: Text('${hymn.number}. ${hymn.title}'),
+        title: Text('${hymn.number}'),
         actions: [
+          IconButton(
+            icon: const Icon(Icons.share),
+            onPressed: () => _shareHymn(context),
+            tooltip: 'Share Hymn',
+          ),
           IconButton(
             icon: Icon(
               isFav ? Icons.favorite : Icons.favorite_border,
               color: isFav ? Colors.red : null,
             ),
             onPressed: () => model.toggleFavorite(hymn.number),
+            tooltip: 'Toggle Favorite',
           ),
           IconButton(
             icon: const Icon(Icons.settings),

@@ -6,4 +6,14 @@ Update Hymn
 
 dart run flutter_launcher_icons:main
 flutter pub run flutter_native_splash:create
-dart run flutter_launcher_icons:generate
+
+
+
+
+
+flutter pub get --offline
+
+
+///To playstore
+
+flutter build appbundle --release

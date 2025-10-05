@@ -11,42 +11,66 @@ class ContactScreen extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const SizedBox(height: 20),
-            const Text(
-              'Contact Us',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            _buildContactCard(
-              icon: Icons.email,
-              title: '',
-              subtitle: '',
-              value: 'support@newcatholichymnal.com',
-            ),
-            const SizedBox(height: 16),
-            _buildContactCard(
-              icon: Icons.phone,
-              title: '',
-              subtitle: '',
-              value: '024 000 0000 / 020 000 0000',
-            ),
-            const SizedBox(height: 10),
-            _buildContactCard(
-              icon: Icons.location_on,
-              title: '',
-              subtitle: '',
-              value: 'Queen of Peace Catholic Church - Madin, Accra - Ghana',
-            ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             const Text(
               'About The New Catholic Hymnal 2021',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 5),
             const Text(
-              'The New Catholic Hymnal is a digital collection of traditional updated Catholic hymns '
-              'designed to help you sing, worship and pray through Catholic Mass.',
-              style: TextStyle(fontSize: 16),
+              'The New Catholic Hymnal is a digital compilation of updated traditional Catholic hymns, created to inspire and guide you in singing, worship, and prayer throughout the Catholic Mass.',
+              style: TextStyle(fontSize: 12),
+            ),
+
+            const SizedBox(height: 10),
+
+            // About Us Section
+            const Text(
+              'About Us',
+              style: TextStyle(
+                fontSize: 16,
+                fontWeight: FontWeight.bold,
+                color: Colors.teal,
+              ),
+            ),
+            const SizedBox(height: 5),
+
+            // Company Card
+            _buildContactCard(
+              icon: Icons.business,
+              title: 'Company',
+              subtitle: 'OLGABYTE',
+              value: '',
+            ),
+
+            const SizedBox(height: 5),
+
+            // Email Card
+            _buildContactCard(
+              icon: Icons.email,
+              title: 'Email',
+              subtitle: 'olgabyte256@gmail.com',
+              value: '',
+            ),
+
+            const SizedBox(height: 5),
+
+            // WhatsApp Card
+            _buildContactCard(
+              icon: Icons.chat,
+              title: 'WhatsApp',
+              subtitle: '+233 (0) 55 323 0095',
+              value: '',
+            ),
+
+            const SizedBox(height: 5),
+
+            // Location Card
+            _buildContactCard(
+              icon: Icons.location_on,
+              title: 'Location',
+              subtitle: 'Accra, Ghana',
+              value: '',
             ),
           ],
         ),
@@ -61,17 +85,49 @@ class ContactScreen extends StatelessWidget {
     required String value,
   }) {
     return Card(
-      elevation: 2,
+      elevation: 3,
+      margin: const EdgeInsets.symmetric(vertical: 2),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
       child: ListTile(
-        leading: Icon(icon, color: Colors.teal),
-        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
-        subtitle: Text(subtitle),
-        trailing: Text(
-          value,
-          style: const TextStyle(color: Color.fromARGB(255, 125, 131, 130)),
+        leading: Container(
+          width: 40,
+          height: 40,
+          decoration: BoxDecoration(
+            color: Colors.teal.withOpacity(0.1),
+            shape: BoxShape.circle,
+          ),
+          child: Icon(icon, color: Colors.teal, size: 20),
         ),
+        title: Text(
+          title,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+        ),
+        subtitle: Text(
+          subtitle,
+          style: const TextStyle(fontSize: 12, color: Colors.black87),
+        ),
+        trailing: value.isNotEmpty
+            ? Text(
+                value,
+                style: const TextStyle(
+                  color: Color.fromARGB(255, 125, 131, 130),
+                  fontSize: 12,
+                ),
+              )
+            : null,
         onTap: () {
-          // Handle contact action
+          // Handle contact action based on type
+          switch (title) {
+            case 'Email':
+              // TODO: Implement email launch
+              break;
+            case 'WhatsApp':
+              // TODO: Implement WhatsApp launch
+              break;
+            case 'Location':
+              // TODO: Implement maps launch
+              break;
+          }
         },
       ),
     );

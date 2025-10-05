@@ -53,32 +53,192 @@ class HomePage extends StatelessWidget {
                 if (list.isEmpty) {
                   return const Center(child: Text('No hymns found'));
                 }
-                return ListView.builder(
-                  itemCount: list.length,
-                  itemBuilder: (context, idx) {
-                    final h = list[idx];
-                    final fav = m.favoriteSet.contains(h.number);
-                    return ListTile(
-                      title: Text('${h.number}. ${h.title}'),
-                      trailing: IconButton(
-                        icon: Icon(
-                          fav ? Icons.favorite : Icons.favorite_border,
-                          color: fav ? Colors.red : null,
-                        ),
-                        onPressed: () => m.toggleFavorite(h.number),
-                      ),
-                      onTap: () => Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (_) => HymnDetailPage(hymn: h),
-                        ),
-                      ),
-                    );
-                  },
-                );
+                return _AnimatedHymnList(hymns: list);
               },
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _AnimatedHymnList extends StatefulWidget {
+  final List<dynamic> hymns;
+
+  const _AnimatedHymnList({required this.hymns});
+
+  @override
+  State<_AnimatedHymnList> createState() => _AnimatedHymnListState();
+}
+
+class _AnimatedHymnListState extends State<_AnimatedHymnList>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _animationController;
+  late Animation<double> _scaleAnimation;
+  late Animation<double> _fadeAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 300), // Same duration for all
+      vsync: this,
+    );
+
+    _scaleAnimation = Tween<double>(begin: 0.9, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
+    );
+
+    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
+      CurvedAnimation(parent: _animationController, curve: Curves.easeIn),
+    );
+
+    // Start animation immediately
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _animationController.forward();
+    });
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final model = Provider.of<HymnalModel>(context);
+
+    return ScaleTransition(
+      scale: _scaleAnimation,
+      child: FadeTransition(
+        opacity: _fadeAnimation,
+        child: ListView.builder(
+          itemCount: widget.hymns.length,
+          itemBuilder: (context, idx) {
+            final h = widget.hymns[idx];
+            final fav = model.favoriteSet.contains(h.number);
+            return _HymnTile(
+              hymn: h,
+              isFavorite: fav,
+              onTap: () => Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => HymnDetailPage(hymn: h)),
+              ),
+              onToggleFavorite: () => model.toggleFavorite(h.number),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _HymnTile extends StatelessWidget {
+  final dynamic hymn;
+  final bool isFavorite;
+  final VoidCallback onTap;
+  final VoidCallback onToggleFavorite;
+
+  const _HymnTile({
+    required this.hymn,
+    required this.isFavorite,
+    required this.onTap,
+    required this.onToggleFavorite,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
+      child: Card(
+        elevation: 4,
+        shadowColor: Colors.grey.withOpacity(0.5),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12.0),
+        ),
+        child: InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(12.0),
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12.0),
+              gradient: LinearGradient(
+                begin: Alignment.centerLeft,
+                end: Alignment.centerRight,
+                colors: [
+                  Theme.of(context).colorScheme.surface,
+                  Theme.of(context).colorScheme.surfaceVariant.withOpacity(0.3),
+                ],
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 16.0,
+                vertical: 12.0,
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      color: Theme.of(context).primaryColor.withOpacity(0.1),
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: Theme.of(context).primaryColor.withOpacity(0.3),
+                        width: 1.5,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        '${hymn.number}',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 16),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          hymn.title,
+                          style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 16,
+                          ),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ],
+                    ),
+                  ),
+                  IconButton(
+                    icon: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 200),
+                      transitionBuilder: (child, animation) {
+                        return ScaleTransition(scale: animation, child: child);
+                      },
+                      child: Icon(
+                        isFavorite ? Icons.favorite : Icons.favorite_border,
+                        key: ValueKey(isFavorite),
+                        color: isFavorite ? Colors.red : null,
+                        size: 24,
+                      ),
+                    ),
+                    onPressed: onToggleFavorite,
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }
